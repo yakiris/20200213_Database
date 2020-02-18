@@ -1,0 +1,17 @@
+1.Установите СУБД MySQL. Создайте в домашней директории файл .my.cnf, задав в нем логин и пароль, который указывался при установке.
+
+ii@ii-VirtualBox:~/mysql$ cat > .my.cnf
+[mysql]
+user=root
+password=
+^C
+ii@ii-VirtualBox:~/mysql$ ls -la
+итого 16
+drwxr-xr-x  2 ii ii 4096 фев 18 20:42 .
+drwxr-xr-x 17 ii ii 4096 фев 18 20:29 ..
+-rwxrwx---  1 ii ii   21 фев 17 23:21 hello.sql
+-rw-r--r--  1 ii ii   32 фев 18 20:43 .my.cnf
+ii@ii-VirtualBox:~/mysql$ cat .my.cnf
+[mysql]
+user=root
+password=
