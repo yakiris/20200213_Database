@@ -9,8 +9,10 @@ SELECT
 	FROM
 		profiles
 	WHERE
-		user_id = l.target_id) AS gender
+		user_id = l.user_id) AS gender
 FROM
 	likes l
 GROUP BY
-	gender;
+	gender
+ORDER BY
+	likes DESC;
