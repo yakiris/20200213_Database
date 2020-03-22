@@ -50,15 +50,15 @@ LIMIT 10;
 SELECT DISTINCT r.name, 
 	round(sum(f.protein * i.quantity)/sum(i.quantity), 1) protein,
 	(CASE (p.gender) WHEN "m" THEN "мужчина" WHEN "w" THEN "женщина" END) gender
-	FROM recipes r
-		JOIN ingredients i ON r.id = i.recipes_id
-		JOIN foods f ON i.food_id = f.id
-		JOIN profiles p ON r.user_id = p.user_id
-	GROUP BY
-		 r.id
-	ORDER BY
-		protein DESC
-	LIMIT 10;
+FROM recipes r
+	JOIN ingredients i ON r.id = i.recipes_id
+	JOIN foods f ON i.food_id = f.id
+	JOIN profiles p ON r.user_id = p.user_id
+GROUP BY
+	r.id
+ORDER BY
+	protein DESC
+LIMIT 10;
 	
 -- пользователи лайкающие рецепты своей страны
 SELECT u.username, 
@@ -68,7 +68,7 @@ FROM users u
 	JOIN profiles p ON u.id = p.user_id
 	JOIN likes l ON u.id = l.user_id
 	JOIN recipes r ON l.pecipe_id = r.id
-	JOIN country c ON p.country_id = c.id 
+	JOIN countries c ON p.country_id = c.id 
 WHERE 
 	p.country_id = r.country_id
 GROUP BY 

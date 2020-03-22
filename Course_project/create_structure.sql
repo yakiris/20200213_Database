@@ -1,3 +1,5 @@
+-- DROP DATABASE IF EXISTS receptmira;
+
 CREATE DATABASE receptmira;
 USE receptmira;
 
@@ -7,20 +9,20 @@ CREATE TABLE categories (
 	portion INT UNSIGNED NOT NULL
 ) COMMENT = 'Категории блюд';
 
-CREATE TABLE continent (
+CREATE TABLE continents (
 	id INT UNSIGNED NOT NULL AUTO_INCREMENT UNIQUE PRIMARY KEY,
 	name VARCHAR(255) NOT NULL
 ) COMMENT = 'Континенты';
 
-CREATE TABLE country (
+CREATE TABLE countries (
 	id INT UNSIGNED NOT NULL AUTO_INCREMENT UNIQUE PRIMARY KEY,
 	name VARCHAR(255) NOT NULL,
 	continent_id INT UNSIGNED NOT NULL
 ) COMMENT = 'Страны';
 
-ALTER TABLE country 
+ALTER TABLE countries 
 	ADD CONSTRAINT country_continent_id_fk 
-		FOREIGN KEY (continent_id) REFERENCES continent(id);
+		FOREIGN KEY (continent_id) REFERENCES continents(id);
 	
 CREATE TABLE foods (
 	id INT UNSIGNED NOT NULL AUTO_INCREMENT UNIQUE PRIMARY KEY,
@@ -47,15 +49,7 @@ CREATE TABLE profiles (
   updated DATETIME DEFAULT NOW() ON UPDATE NOW()  
 )COMMENT = 'Профиль пользователя';
 
-ALTER TABLE profiles 
-ADD CONSTRAINT profiles_user_id_fk 
-	FOREIGN KEY (user_id) REFERENCES users(id),
-ADD CONSTRAINT profiles_country_id_fk 
-	FOREIGN KEY (country_id) REFERENCES country(id),
-ADD CONSTRAINT profiles_photo_id_fk 
-	FOREIGN KEY (photo_id) REFERENCES photo(id);
-
-CREATE TABLE photo (
+CREATE TABLE photos (
 	id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	user_id INT UNSIGNED NOT NULL,
 	filename VARCHAR(255) NOT NULL,
@@ -63,7 +57,15 @@ CREATE TABLE photo (
 	created DATETIME DEFAULT NOW()
 )COMMENT = 'Каталог фото';
 
-ALTER TABLE photo 
+ALTER TABLE profiles 
+ADD CONSTRAINT profiles_user_id_fk 
+	FOREIGN KEY (user_id) REFERENCES users(id),
+ADD CONSTRAINT profiles_country_id_fk 
+	FOREIGN KEY (country_id) REFERENCES countries(id),
+ADD CONSTRAINT profiles_photo_id_fk 
+	FOREIGN KEY (photo_id) REFERENCES photos(id); 
+
+ALTER TABLE photos 
 ADD CONSTRAINT photo_user_id_fk 
 	FOREIGN KEY (user_id) REFERENCES users(id);
 
@@ -82,13 +84,13 @@ updated DATETIME DEFAULT NOW() ON UPDATE NOW()
 
 ALTER TABLE recipes
 ADD CONSTRAINT recipes_country_id_fk 
-	FOREIGN KEY (country_id) REFERENCES country(id),
+	FOREIGN KEY (country_id) REFERENCES countries(id),
 ADD CONSTRAINT recipes_category_id_fk 
 	FOREIGN KEY (category_id) REFERENCES categories(id),
 ADD CONSTRAINT recipes_user_id_fk 
 	FOREIGN KEY (user_id) REFERENCES users(id),
 ADD CONSTRAINT recipes_photo_id_fk 
-	FOREIGN KEY (photo_id) REFERENCES photo(id);
+	FOREIGN KEY (photo_id) REFERENCES photos(id);
 
 CREATE TABLE ingredients (
 recipes_id INT UNSIGNED NOT NULL,
@@ -102,7 +104,7 @@ ADD CONSTRAINT ingredients_recipes_id_fk
 ADD CONSTRAINT ingredients_food_id_fk 
 	FOREIGN KEY (food_id) REFERENCES foods(id);
 
-CREATE TABLE statuses_friend (
+CREATE TABLE friend_statuses (
   id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR(100) NOT NULL
  )COMMENT = 'Статусы друзей';
