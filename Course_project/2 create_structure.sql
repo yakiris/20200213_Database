@@ -36,7 +36,12 @@ CREATE TABLE foods (
 CREATE TABLE users (
   id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
   username VARCHAR(100) NOT NULL,
-  email VARCHAR(120) NOT NULL UNIQUE 
+  email VARCHAR(120) NOT NULL UNIQUE,
+  photos INT NOT NULL DEFAULT 0,
+  friends INT NOT NULL DEFAULT 0,
+  likes INT NOT NULL DEFAULT 0,
+  messages INT NOT NULL DEFAULT 0,
+  recipes INT NOT NULL DEFAULT 0
 )COMMENT = 'Пользователи';
 
 CREATE TABLE profiles (
@@ -92,10 +97,23 @@ ADD CONSTRAINT recipes_user_id_fk
 ADD CONSTRAINT recipes_photo_id_fk 
 	FOREIGN KEY (photo_id) REFERENCES photos(id);
 
+CREATE TABLE menus (
+id SERIAL PRIMARY KEY,
+user_id INT UNSIGNED NOT NULL,
+recipes_id INT UNSIGNED NOT NULL
+)COMMENT = 'Таблица составления меню';
+
+ALTER TABLE menus
+ADD CONSTRAINT menus_recipes_id_fk 
+	FOREIGN KEY (recipes_id) REFERENCES recipes(id),
+ADD CONSTRAINT menus_user_id_fk
+	FOREIGN KEY (user_id) REFERENCES users(id);
+
 CREATE TABLE ingredients (
 recipes_id INT UNSIGNED NOT NULL,
 food_id INT UNSIGNED NOT NULL,
-quantity INT UNSIGNED NOT NULL
+quantity INT UNSIGNED NOT NULL,
+basic BOOL 
 )COMMENT = 'Таблица расчета ингридиентов';
 
 ALTER TABLE ingredients
