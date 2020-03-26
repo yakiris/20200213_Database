@@ -5,21 +5,23 @@
 DROP FUNCTION IF EXISTS hello;
 
 DELIMITER //
-CREATE FUNCTION hello(times DATETIME)
-RETURNS varchar(255) DETERMINISTIC 
+CREATE FUNCTION hello ()
+RETURNS TINYTEXT NO SQL
 BEGIN
-DECLARE result_hello varchar(255);
-	IF time(times) BETWEEN '06:00:00' AND '12:00:00' THEN 
-  		SET result_hello = 'Доброе утро';
-	ELSEIF time(times) BETWEEN '12:00:01' AND '18:00:00' THEN
-  		SET result_hello = 'Добрый день';
-  	ELSEIF time(times) BETWEEN '18:00:01' AND '00:00:00' THEN
-  		SET result_hello = 'Добрый вечер';
-  	ELSE 
-  		SET result_hello = 'Доброй ночи';
- 	END IF;
-RETURN result_hello;
+  DECLARE hour INT;
+  SET hour = HOUR(NOW());
+  CASE
+    WHEN hour BETWEEN 0 AND 5 THEN
+      RETURN "Доброй ночи";
+    WHEN hour BETWEEN 6 AND 11 THEN
+      RETURN "Доброе утро";
+    WHEN hour BETWEEN 12 AND 17 THEN
+      RETURN "Добрый день";
+    WHEN hour BETWEEN 18 AND 23 THEN
+      RETURN "Добрый вечер";
+  END CASE;
 END//
 DELIMITER ;
 
-SELECT hello(now());
+SELECT NOW(), hello ();
+

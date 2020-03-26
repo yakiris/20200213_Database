@@ -5,7 +5,7 @@ mysql>
 mysql> CREATE DATABASE sample;
 Query OK, 1 row affected (0,88 sec)
 
-mysql> show databases;
+mysql> SHOW databases;
 +--------------------+
 | Database           |
 +--------------------+
@@ -31,9 +31,9 @@ Enter password:
 root@ii-VirtualBox:/var/lib/mysql# mysql -u root -p
 Enter password: 
 
-mysql> use sample;
+mysql> USE sample;
 Database changed
-mysql> show tables;
+mysql> SHOW tables;
 +------------------+
 | Tables_in_sample |
 +------------------+
@@ -41,7 +41,7 @@ mysql> show tables;
 +------------------+
 1 row in set (0,00 sec)
 
-mysql> describe users;
+mysql> DESCRIBE users;
 +-------+-----------------+------+-----+---------+----------------+
 | Field | Type            | Null | Key | Default | Extra          |
 +-------+-----------------+------+-----+---------+----------------+

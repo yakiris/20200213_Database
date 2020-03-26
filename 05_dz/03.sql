@@ -3,4 +3,18 @@
 #Необходимо отсортировать записи таким образом, чтобы они выводились в порядке увеличения 
 #значения value. Однако, нулевые запасы должны выводиться в конце, после всех записей.
 
-SELECT id, storehouse_id, product_id, value, if(value = 0, 1, 0) sort FROM storehouses_products ORDER BY sort, value;
+SELECT
+  *
+FROM
+  storehouses_products
+ORDER BY
+  IF(value > 0, 0, 1),
+  value;
+
+
+SELECT
+  *
+FROM
+  storehouses_products
+ORDER BY
+  value = 0, value;

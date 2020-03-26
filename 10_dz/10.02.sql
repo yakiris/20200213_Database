@@ -15,7 +15,7 @@ count(p.user_id)OVER() / (SELECT count(*) FROM communities) AS average_in_group,
 max(p.birthday) OVER w AS youngest,
 min(p.birthday) OVER w AS eldest,
 count(cu.user_id) OVER w AS users_in_group,
-count(p.user_id) OVER() all_users,
+(SELECT COUNT(*) FROM users) all_users,
 count(cu.user_id) OVER w / count(p.user_id) OVER() * 100 AS '%%' 
 FROM communities c
 	JOIN communities_users cu ON c.id = cu.community_id

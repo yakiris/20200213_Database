@@ -1,12 +1,12 @@
-select * from users limit 10;
+SELECT * FROM users LIMIT 10;
 
-select created_at, updated_at from users where updated_at < created_at;
-update users set created_at = current_timestamp where created_at > updated_at;
+SELECT created_at, updated_at FROM users WHERE updated_at < created_at;
+UPDATE users SET created_at = CURRENT_TIMESTAMP WHERE created_at > updated_at;
 
 SELECT * FROM profiles LIMIT 10;
 
-create temporary table gend (gend char(1));
-insert into gend values ('m'), ('w');
+CREATE TEMPORARY TABLE gend (gend char(1));
+INSERT INTO gend VALUES ('m'), ('w');
 
 UPDATE profiles SET gender = (SELECT gend FROM gend ORDER BY RAND() LIMIT 1); 
 
@@ -141,5 +141,5 @@ CREATE TABLE post (
 	update_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
-select * from post;
+SELECT * FROM post;
 

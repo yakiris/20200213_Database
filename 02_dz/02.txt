@@ -3,9 +3,9 @@
 mysql> CREATE DATABASE example;
 Query OK, 1 row affected (0,04 sec)
 
-mysql> use example;
+mysql> USE example;
 Database changed
-mysql> CREATE TABLE if not exists users(
+mysql> CREATE TABLE IF NOT EXISTS users(
     -> id SERIAL PRIMARY KEY,
     -> name VARCHAR(255) COMMENT 'Пользователь');
 Query OK, 0 rows affected (0,11 sec)
@@ -20,4 +20,3 @@ mysql> DESCRIBE users;
 2 rows in set (0,01 sec)
 
 mysql> 
-

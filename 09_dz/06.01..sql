@@ -2,8 +2,6 @@
 -- Переместите запись id = 1 из таблицы shop.users в таблицу sample.users. Используйте транзакции.
 
 START TRANSACTION;
-
-INSERT INTO sample.users (name, birthday_at, created_at, updated_at) 
-	SELECT name, birthday_at, created_at, updated_at FROM shop.users WHERE id = 1;
-	
+  INSERT INTO sample.users SELECT * FROM shop.users WHERE id = 1;
+  DELETE FROM shop.users WHERE id = 1 LIMIT 1;
 COMMIT;
