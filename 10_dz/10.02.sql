@@ -21,4 +21,4 @@ FROM communities c
 	JOIN communities_users cu ON c.id = cu.community_id
 	JOIN profiles p ON cu.user_id = p.user_id
 	WINDOW w AS (PARTITION BY c.id)
-ORDER BY c.name;
+ORDER BY eldest;
